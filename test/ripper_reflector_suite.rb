@@ -27,7 +27,7 @@ class RubyReflectorSuite < Test::Unit::TestCase
     return if RUBY_VERSION > '1.9.0'
     x = 42
     reflects = assert_flunk /assert/ do
-      assert{ x == 
+      assert{ x ==
                        43 }
     end
 
@@ -42,7 +42,7 @@ class RubyReflectorSuite < Test::Unit::TestCase
     return if RUBY_VERSION > '1.9.0'
     x = 42
     reflects = assert_flunk /assert/ do
-      assert{ x == 
+      assert{ x ==
                        43 }
     end
    return # sorry folks this one got too weird... (-:
@@ -56,9 +56,9 @@ class RubyReflectorSuite < Test::Unit::TestCase
   def test_pass_args_to_detector
     @effect.captured_block_vars = 'x, y'
     @effect.args = [40, 2]
-    assert{ @effect.detect('x + y') == 42 }   
+    assert{ @effect.detect('x + y') == 42 }
   end
-  
+
   def test_captures
     assert_assert 'x', 42
     assert_assert '~x', ~42
@@ -81,10 +81,10 @@ class RubyReflectorSuite < Test::Unit::TestCase
     assert_reflect "daZone('string \\\"nested\\\"')", "daZone(\"string \\\"nested\\\"\")"
     assert_reflect "daZone('string \"nested\"')", "daZone(\"string \\\"nested\\\"\")"
   end
-    
+
   def daZone( whatever )
   end
-  
+
   def test_format_assertion_result
     value = "if the thunder don't catch ya\nthen the lighting will"
     sample = @effect.format_assertion_result('mission accomplished', value)
@@ -102,10 +102,10 @@ class RubyReflectorSuite < Test::Unit::TestCase
     assert_reflect source
     assert_capture source, match
   end
-  
+
   def _test_rip_thyself
     home = File.dirname(__FILE__)
-    
+
     Dir[home + '/*.rb'].each do |file|
       assert_rip_file home + '/' + file
     end
@@ -114,7 +114,7 @@ class RubyReflectorSuite < Test::Unit::TestCase
   def assert_rip_file(filename)
     rippage = Ripper.sexp(File.read(filename))
     @effect.block = nil
-    
+
     rippage.last.each do |statement|
       @effect.sender statement
     end
@@ -196,7 +196,7 @@ class RubyReflectorSuite < Test::Unit::TestCase
     assert_reflect "assert do\nx == 42\n42 == x\nend"
     assert_reflect "x = lambda do\nx == 42\nend"
   end
-  
+
   def test_reflections_two
     assert_reflect "x.call(15)"
     assert_reflect "[42, *args].call(\"yo\")"
@@ -226,7 +226,7 @@ class RubyReflectorSuite < Test::Unit::TestCase
     assert_reflect '"mashed#{ "nested#{ 42 }mashed" }string"'
     assert_reflect '"mashed#{ "nested#{ "42" }mashed" }string"'
   end
-  
+
   def test_reflections_three
     assert_reflect ':"symbol#{ 42 }"'
     assert_reflect 'foo = %w{ c30 c60 c90 }', "foo = [ \"c30\", \"c60\", \"c90\" ]"
@@ -254,15 +254,15 @@ class RubyReflectorSuite < Test::Unit::TestCase
     assert_reflect 'hash = { :x => 42, 43 => 44 }'
     assert_reflect 'x = ?z'
   end
-  
+
   def test_trailing_nonsense_in_goal_posts
     assert_reflect 'naughty{ |zone, (what, ever), *stuff, &block|  }'
   end
 
   def test_detect_errors
     assert{ @effect.detect('x') == 42 }
-    
-    assert do 
+
+    assert do
       @effect.detect('foo') =~
         /NameError: undefined local variable or method `foo'/
     end
@@ -288,10 +288,10 @@ class RubyReflectorSuite < Test::Unit::TestCase
   def test_format_snip
     long_snip = 'really.really.really.really.reallyreally.long.expression'
 
-    assert{ @effect.format_snip(60, long_snip) == 
+    assert{ @effect.format_snip(60, long_snip) ==
                    '    really.really.really.really.reallyreally.long.expression' }
 
-    assert{ @effect.format_snip(35, long_snip) == 
+    assert{ @effect.format_snip(35, long_snip) ==
               "       really.really.really.really.\n" +
               "       reallyreally.long.expression" }
   end
@@ -300,7 +300,7 @@ class RubyReflectorSuite < Test::Unit::TestCase
     long_snip = "really.really.really.really.reallyreally.\nlong.broken.expression"
 
     assert do
-      @effect.format_snip(60, long_snip) == 
+      @effect.format_snip(60, long_snip) ==
         "really.really.really.really.reallyreally.\n" +
         "                                      long.broken.expression"
     end
@@ -355,7 +355,7 @@ class RubyReflectorSuite < Test::Unit::TestCase
         return
       end
     end
-    
+
     flunk "#{symbol} not found in\n" +
             @effect.captures.pretty_inspect +
             "\ndespite all of " +
@@ -366,7 +366,7 @@ class RubyReflectorSuite < Test::Unit::TestCase
     rippage = @effect.rip('assert{ x == 42 }')
     brace_block = @effect.extract_block(rippage)
     assert do
-      brace_block == 
+      brace_block ==
              [[:binary,
                [:var_ref, [:@ident, "x", [1, 8]]],
                :==,
@@ -383,9 +383,9 @@ class RubyReflectorSuite < Test::Unit::TestCase
 
   def test_rip_entire_assertion
     rippage = @effect.rip('assert{ x == 42 }')
-    
+
     assert do
-      rippage == 
+      rippage ==
           [[:method_add_block,
             [:method_add_arg, [:fcall, [:@ident, "assert", [1, 0]]], []],
             [:brace_block,
@@ -418,9 +418,9 @@ class RubyReflectorSuite < Test::Unit::TestCase
   end
 
   def test_equality
-    rippage = [:binary, 
-                  [:var_ref, [:@ident, "x", [1, 0]]], 
-                   :==, 
+    rippage = [:binary,
+                  [:var_ref, [:@ident, "x", [1, 0]]],
+                   :==,
                    [:@int, "42", [1, 5]]
               ]
     @effect.sender rippage
@@ -445,9 +445,9 @@ class RubyReflectorSuite < Test::Unit::TestCase
   end
 
   def test_int
-    rippage = [ [:binary, 
-                  [:var_ref, [:@ident, "x", [1, 0]]], 
-                  :==, 
+    rippage = [ [:binary,
+                  [:var_ref, [:@ident, "x", [1, 0]]],
+                  :==,
                   [:@int, "42", [1, 5]]
                  ] ]
     assert{ rippage == @effect.rip('x == 42') }
@@ -464,10 +464,10 @@ class RubyReflectorSuite < Test::Unit::TestCase
   end
 
   def test_rip
-    assert{ @effect.rip('x == 42') == 
-        [[:binary, 
-           [:var_ref, [:@ident, "x", [1, 0]]], 
-            :==, 
+    assert{ @effect.rip('x == 42') ==
+        [[:binary,
+           [:var_ref, [:@ident, "x", [1, 0]]],
+            :==,
             [:@int, "42", [1, 5]]
           ]] }
   end
@@ -476,6 +476,6 @@ class RubyReflectorSuite < Test::Unit::TestCase
     @effect.rip(["x ==\n", '42'])
     assert{ @effect.assertion_source == "x ==\n42" }
   end
-  
+
 end
 

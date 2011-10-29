@@ -33,11 +33,11 @@ The form in question is a familiar user login page:
   </fieldset>
 </form>
 
-If that form were full of <%= eRB %> tags, testing it would be 
-mission-critical. (Adding such eRB tags is left as an exercise for 
+If that form were full of <%= eRB %> tags, testing it would be
+mission-critical. (Adding such eRB tags is left as an exercise for
 the reader!)
 
-This post creates a custom matcher that satisfies the following 
+This post creates a custom matcher that satisfies the following
 requirements:
 
  - the specification <em>looks like</em> the target code
@@ -49,8 +49,8 @@ requirements:
  - the matcher enforces node order. if the specification puts
      a list in collating order, for example, the HTML's order
      must match
- - the specification only requires the attributes and structural 
-     elements that its matcher demands; we skip the rest - 
+ - the specification only requires the attributes and structural
+     elements that its matcher demands; we skip the rest -
      such as the <ol> and <li> elements. They can change
      freely as our website upgrades
  - at fault time, the matcher prints out the failing elements
@@ -86,7 +86,7 @@ class BeHtmlWith
       return run_all_xpaths(build_xpaths)
     end
   end
- 
+
   def build_xpaths(&block)
     bwock = block || @block || proc{} #  CONSIDER  what to do with no block? validate?
     @builder = Nokogiri::HTML::Builder.new(&bwock)
@@ -99,14 +99,14 @@ class BeHtmlWith
   def elemental_children(element = @builder.doc)
     element_kids = element.children.grep(Nokogiri::XML::Node)
 
-    element_kids = element_kids.reject{|k| 
+    element_kids = element_kids.reject{|k|
                      k.class == Nokogiri::XML::Text ||
                      k.class == Nokogiri::XML::DTD
                      }  #  CONSIDER  rebuild to use not abuse the text nodage!
 
     return element_kids
   end
-  
+
   def build_deep_xpath(element)
     path = build_xpath(element)
     path.index('not(') == 0 and return '/*[ ' + path + ' ]'
@@ -116,7 +116,7 @@ class BeHtmlWith
   def build_xpath(element)
     count = @references.length
     @references << element  #  note we skip the without @reference!
-    
+
     if element.name == 'without!'
       return 'not( ' + build_predicate(element, 'or') + ' )'
     else
@@ -150,7 +150,7 @@ class BeHtmlWith
         return false
       end
     end
-    
+
     return true
   end
 
@@ -158,7 +158,7 @@ class BeHtmlWith
     nodes = @doc.root.xpath_with_callback path, :refer do |element, index|
       collect_samples(element, index.to_i)
     end
-     
+
     @returnable ||= nodes.first  #  TODO  be_with_html must get on board too
     return nodes
   end
@@ -169,7 +169,7 @@ class BeHtmlWith
     samples = elements.find_all do |element|
                 match_attributes_and_text(@references[index], element)
               end
-    
+
     collect_best_sample(samples)
     samples
   end
@@ -198,7 +198,7 @@ class BeHtmlWith
       { 'verbose!' => 0,  #  put this first, so it always runs, even if attributes don't match
         'xpath!' => 2  #  put this last, so if attributes don't match, it does not waste time
         }.fetch(q.name, 1)
-    end 
+    end
   end
 
   def verbose_spew(attr)
@@ -215,7 +215,7 @@ class BeHtmlWith
 
   def match_xpath_predicate(attr)
     @sample.parent.xpath("*[ #{ attr.value } ]").each do |m|
-      m.path == @sample.path and 
+      m.path == @sample.path and
         return true
     end
 
@@ -225,7 +225,7 @@ class BeHtmlWith
   def match_attribute(attr)
     ref = deAmpAmp(attr.value)
     sam = deAmpAmp(@sample[attr.name])
-    ref == sam or match_regexp(ref, sam) or 
+    ref == sam or match_regexp(ref, sam) or
       match_class(attr.name, ref, sam)
   end
 
@@ -241,7 +241,7 @@ class BeHtmlWith
   def match_class(attr_name, ref, sam)
     attr_name == 'class' and
       " #{ sam } ".index(" #{ ref } ")
-  end  #  NOTE  if you call it a class, but ref contains 
+  end  #  NOTE  if you call it a class, but ref contains
        #        something fruity, you are on your own!
 
   def match_text(ref = @reference, sam = @sample)
@@ -269,8 +269,8 @@ class BeHtmlWith
   def depth(e)
     e.xpath('ancestor-or-self::*').length
   end
-  
-  def complain( refered = @builder.doc, 
+
+  def complain( refered = @builder.doc,
                  sample = @best_sample || @doc.root )
            #  ERGO  use to_xml? or what?
     @failure_message = "#{message}\n".lstrip +
@@ -311,7 +311,7 @@ class BeHtmlWith
   def negative_failure_message
     "please don't negate - use without!"
   end
-  
+
 end
 
 
@@ -321,12 +321,12 @@ module Test; module Unit; module Assertions
 
   def assert_xhtml(*args, &block)  # ERGO merge
     xhtml, message = args
-    
+
     if @response and message.nil?
       message = xhtml
       xhtml = @response.body
     end
-    
+
     if block
       matcher = BeHtmlWith.new(self, &block)
       matcher.message = message
@@ -372,7 +372,7 @@ module Nokogiri
       def cleanse_element_name(method)
         method.to_s.sub(/[_]$/, '') # or [_!]
       end  #  monkey patch me!
-    
+
       def method_missing method, *args, &block # :nodoc:
         if @context && @context.respond_to?(method)
           @context.send(method, *args, &block)

@@ -45,11 +45,11 @@ In exchange for just a little verbosity, the expression <code>q == 42</code>
 is now more <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself" target='_blank'>DRY</a>.
 
 <p>Further, if <code>q</code> accidentally equals <code>42</code> before, or accidentally
-does not equal it after the call to <code>q += method_that_should_return_one()</code>, the 
+does not equal it after the call to <code>q += method_that_should_return_one()</code>, the
 assertion reflects the source code (but not the values!) of the activation block.
 
 <h3>Assemble Activate Assert</h3>
-<p>All <a href="http://c2.com/cgi/wiki?TestCase">test cases</a><strong></strong> 
+<p>All <a href="http://c2.com/cgi/wiki?TestCase">test cases</a><strong></strong>
 follow some variation on this <a href='http://c2.com/cgi/wiki?AssembleActivateAssert' target='_blank'>pattern</a>:
 </p>
 <PRE>
@@ -64,7 +64,7 @@ follow some variation on this <a href='http://c2.com/cgi/wiki?AssembleActivateAs
 </p>
 Then they <em>Assert</em> that some side-effect, from that method, is within tolerance.
 <p>
-However, in some situations the Assemble phase needs its own assertions. The example 
+However, in some situations the Assemble phase needs its own assertions. The example
 <code>test_case</code> would not catch a bug if <code>a.state</code>
 already equaled <code>42</code> before the call to <code>a.activate</code>.
 </p>
@@ -89,9 +89,9 @@ already equaled <code>42</code> before the call to <code>a.activate</code>.
 <pre>  def _(&block);  lambda(&block);  end
 </pre>
 
-<p>It adds a secret method, <code>_{}</code>, to simplify your parameters. 
+<p>It adds a secret method, <code>_{}</code>, to simplify your parameters.
 The <em>assert2</em> gem does
-not supply this cheat, because abusing <code>_</code> is heinous in 
+not supply this cheat, because abusing <code>_</code> is heinous in
 other people's code, but awesome in our own code!</p>
 
 <h3>Parameters</h3>
@@ -107,7 +107,7 @@ after its activation block. In this case, <code>q</code> must
 not change.</p>
 
 <p>You can call <code>assert_</code> or <code>deny_yin_yang</code>
-with any number of assertions, so long as the activation block 
+with any number of assertions, so long as the activation block
 is first:
 </p>
 
@@ -121,7 +121,7 @@ is first:
 </pre>
 
 <p>The assertion raises a fault if any of those blocks fails. It evaluates
-them in order, and will only reflect the values of the block that failed. 
+them in order, and will only reflect the values of the block that failed.
 (A future version of <code>assert_yin_yang</code> might reflect all
 its assertion blocks if any of them fail.)</p>
 

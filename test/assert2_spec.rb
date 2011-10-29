@@ -10,7 +10,7 @@ class Test::Spec::TestCase
 
       self.count += 1                 # Let them run in order of definition
 
-      nu_block = proc{ |*args| 
+      nu_block = proc{ |*args|
                      begin
 
                       block.call
@@ -36,7 +36,7 @@ context 'bond assert{ 2.0 } with test/spec' do
     x = 42
     assert{ x == 42 }
   end
-  
+
   specify 'a simple passing deny works' do
     x = 42
     deny{ x == 43 }

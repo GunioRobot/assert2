@@ -15,13 +15,13 @@ context 'send_js_to' do
                 input.Top_Ranking!
                 }
   end
-  
+
   specify 'a simple negative assertion works' do
-    js.should.not send_js_to(:replace_html, 'label_7'){  
+    js.should.not send_js_to(:replace_html, 'label_7'){
                 input.Toop_Ranking!
                 }
   end  # TODO  why our error message sucks?
-  
+
 end
 
 

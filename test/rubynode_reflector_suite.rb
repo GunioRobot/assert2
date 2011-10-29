@@ -104,7 +104,7 @@ class RubyReflectorTest < Test::Unit::TestCase
       print '.'
     end
   end  #  TODO  both reflectors should pass this common stuff
-  
+
   #  TODO  where is "Offending line:" coming from??
   #  TODO  the 1.9 reflector should pass Ruby's native parsing tests
 

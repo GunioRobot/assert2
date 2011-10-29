@@ -1,6 +1,6 @@
 The assert{ 2.0 } project asks a simple question:
 
-  How the leanest possible assertions 
+  How the leanest possible assertions
   can yield the maximum diagnostics?
 
 Its latest assertion, assert_xhtml, answers this question for HTML.
@@ -11,7 +11,7 @@ To begin, grab it with:
 
 ==require 'assert2/xhtml'==
 
-All assert{ 2.0 } dependencies are optional. If you have Nokogiri 
+All assert{ 2.0 } dependencies are optional. If you have Nokogiri
 (>=1.2.2), you can test Rails views like this:
 
      user = users(:Moses)
@@ -32,9 +32,9 @@ All assert{ 2.0 } dependencies are optional. If you have Nokogiri
      end
 
 That's a Rails functional test on a form. The assertion expects the form
-to target the given action, and contain a fieldset, a legend, a label, and 
-a populated text input field. The assertion forgives any other details, 
-such as intervening structural tags, excess spaces, or extra attributes; 
+to target the given action, and contain a fieldset, a legend, a label, and
+a populated text input field. The assertion forgives any other details,
+such as intervening structural tags, excess spaces, or extra attributes;
 and complains if any required detail is missing, out of order, or ill-formed.
 
 The DSL inside that block is Nokogiri::HTML::Builder notation. Generally
@@ -61,7 +61,7 @@ do indeed appear in your output:
 That assertion will fail if the outer <div class='content'> tag does not
 exist, or if any inner <div class='download'> does exist.
 
-The without! element respects your document layout. This assertion 
+The without! element respects your document layout. This assertion
 passes...
 
     assert_xhtml SAMPLE_LIST do
@@ -89,7 +89,7 @@ criteria</li>:
       </li>
     </ul>
 
-The two <li> elements appear in different <ul> lists, so the assertion 
+The two <li> elements appear in different <ul> lists, so the assertion
 does not associate them.
 
 The committee does not yet know what without!{ without!{} } does, so please
@@ -98,12 +98,12 @@ do not rely on its current behavior, whatever that is!
 ===escapes===
 
 Certain elements, such as <select> and <id>, have the same names as internal
-methods. If you experience a bizarre error message, such as "wrong argument 
+methods. If you experience a bizarre error message, such as "wrong argument
 type Hash (expected Array)", add a ! to the end of the element, like this:
 
     assert_xhtml do
       h2 'Sites'
-      
+
       select! :id => 'sites',
               :name => 'sites[]',
               :multiple => :multiple,
@@ -116,7 +116,7 @@ An element such as h3{ 'text' } will match <h3> text </h3>, with leading and
 trailing blanks, but it won't match <h3><span>text</span></h3>. This rule
 prevents runaway matches between high- and low-level elements.
 
-A text specification may be a /regexp/, and an element may contain both text 
+A text specification may be a /regexp/, and an element may contain both text
 and attributes:
 
   h2 /Sites/, :style => /right/
@@ -158,8 +158,8 @@ parent. This assertion forces list items to appear in the correct order:
 
 ===:verbose! => true===
 
-Sometimes when an assertion fails, you can't tell why. To see each 
-context the assertion considers, add :verbose! => true to the lowest 
+Sometimes when an assertion fails, you can't tell why. To see each
+context the assertion considers, add :verbose! => true to the lowest
 element you know works, and run the tests:
 
     assert_xhtml SAMPLE_FORM do
@@ -170,7 +170,7 @@ element you know works, and run the tests:
       end
     end
 
-The verbose option works as "spew", not as a diagnostic, and it reports 
+The verbose option works as "spew", not as a diagnostic, and it reports
 each considered element's contents.
 
 Because XPath evaluates the <label>, in our example, before the <li>, you
@@ -208,13 +208,13 @@ The :class attribute is magic. This assertion passes...
     end
 
 ...despite the actual HTML contains <ul class='kalika goddess'>. This feature
-simulates the CSS Selector notation that matches classes by their cascading 
+simulates the CSS Selector notation that matches classes by their cascading
 effects.
 
 ===class & ID shortcuts===
 
-Nokogiri expands div.rad.thing! to <div class='rad' id='thing'/>. That 
-means you don't need to write div :class => 'rad', :id => 'thing' (or 
+Nokogiri expands div.rad.thing! to <div class='rad' id='thing'/>. That
+means you don't need to write div :class => 'rad', :id => 'thing' (or
 ul :class => :kalika). You can then put other arguments after the shortcut,
 and the <div> in our example receives them, too.
 

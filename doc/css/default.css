@@ -46,13 +46,13 @@ h1 {
 		height: 130px;
 		margin: 10px auto 10px auto;
 	}
-	
+
 	#bottom_container {
 		clear: both;
 		width: 700px;
 	}
-	
-.page-top {	
+
+.page-top {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -62,18 +62,18 @@ h1 {
 	border-bottom: 5px solid #444444;
 }
 
-.page-sidebar { 
-	position: fixed; 
-	top: 30px; 
-	left: 20px;	
-	width: 250px; 
+.page-sidebar {
+	position: fixed;
+	top: 30px;
+	left: 20px;
+	width: 250px;
 }
 
-* html .page-sidebar { 
-	top: 30px; 
-	left: 20px;	
-	width: 250px; 
-	position:absolute; 
+* html .page-sidebar {
+	top: 30px;
+	left: 20px;
+	width: 250px;
+	position:absolute;
 }
 
 .page-title {
@@ -85,8 +85,8 @@ h1 {
 	.page-title h1 {
 		margin: 0 0 5px 0;
 	}
-	
-	
+
+
 	.page-title h2 {
 		clear: both;
 		font-size: 100%;
@@ -96,31 +96,31 @@ h1 {
 	}
 
 .page-body {
-	margin: 0 10% 0 315px;	
+	margin: 0 10% 0 315px;
 	width: 600px;
 	padding: 30px 0 20px 0;
 	text-align: left;
 }
 
 	.page-footer {
-		margin: 20px  0 0 0;	
+		margin: 20px  0 0 0;
 		text-align: left;
 		font-size: 10px;
 		color:#AADDFF;
 	}
 
-	.page-body ul, .page-body ol { 
+	.page-body ul, .page-body ol {
 		color: #ffffff;
-		margin: 10px 0 30px 25px; 
+		margin: 10px 0 30px 25px;
 	}
 
-	.page-body ul li, 
-	.page-body ol li { 
-		padding: 0; 
-		margin: 0 0 5px 0; 
+	.page-body ul li,
+	.page-body ol li {
+		padding: 0;
+		margin: 0 0 5px 0;
 		color: #cccccc;
 		/*line-height: 140%;*/
-		font-size: 100%;		
+		font-size: 100%;
 	}
 
 	.page-footer p {
@@ -157,19 +157,19 @@ h2 {
 	background-color: #09f;
 	margin: 0 0 20px 0;
 }
-	
-.navigation { 
+
+.navigation {
 	/*list-style: none; */
-	margin: 10px 0 30px 0; 
+	margin: 10px 0 30px 0;
 	width: 200px;
 }
 
-	.navigation li { 
-		padding: 0; 
-		margin: 0; 
+	.navigation li {
+		padding: 0;
+		margin: 0;
 	}
 
-	.navigation a, 
+	.navigation a,
 	.navigation a:visited {
 		display: block;
 		height: 25px;
@@ -187,22 +187,22 @@ h2 {
 	}
 
 a.page-options {
-	color: #000000; 
-	text-decoration: none; 
-	display: block; 
-	text-align: left; 
-	padding: 5px; 
+	color: #000000;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+	padding: 5px;
 	background: #a9d06a;
 	margin: 3px 0 0 0;
 	border-bottom: 1px solid #333333;
 	border-bottom: 1px solid #555555;
 }
 
-a.page-options:hover, 
+a.page-options:hover,
 a.page-options:focus {
-	color: black; 
+	color: black;
 	background: #09F;
-}		
+}
 
 .page-footer a {
 		color: white;
@@ -242,7 +242,7 @@ code span.string {
 }
 
 code span.brackets {
-	
+
 }
 
 code span.symbol {

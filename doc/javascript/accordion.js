@@ -198,4 +198,3 @@ accordion.prototype = {
 		});
 	}
 }
-	
